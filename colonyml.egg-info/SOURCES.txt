@@ -12,3 +12,6 @@ colonyml.egg-info/dependency_links.txt
 colonyml.egg-info/entry_points.txt
 colonyml.egg-info/requires.txt
 colonyml.egg-info/top_level.txt
+tests/__init__.py
+tests/test_compressor.py
+tests/test_scheduler.py
