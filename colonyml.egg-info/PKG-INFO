@@ -1,0 +1,115 @@
+Metadata-Version: 2.4
+Name: colonyml
+Version: 0.1.2
+Summary: Zero-config distributed ML training for CPU clusters
+Home-page: https://github.com/gjeevana27/colonyml
+Author: Jeevana Gogineni
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: torch>=2.0.0
+Requires-Dist: zeroconf>=0.128.0
+Requires-Dist: rich>=13.0.0
+Requires-Dist: click>=8.0.0
+Requires-Dist: psutil>=5.9.0
+Requires-Dist: numpy>=1.24.0
+Dynamic: author
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# ColonyML
+
+> Zero-config distributed ML training for CPU clusters.
+
+[![PyPI version](https://badge.fury.io/py/colonyml.svg)](https://pypi.org/project/colonyml/)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Pool any laptops into a training cluster — no IP addresses,
+no config files, no GPU required. Just:
+
+```bash
+pip install colonyml
+colonyml join
+```
+
+---
+
+## The Problem
+
+Training ML models on one laptop is slow. You might have
+multiple machines sitting idle. Existing distributed training
+tools require manual IP configuration, Linux, or expensive GPUs.
+
+ColonyML fixes this. Any laptop. Any OS. Zero setup.
+
+---
+
+## How It Works
+
+```
+Laptop 1 → colonyml join   (announces itself on network)
+Laptop 2 → colonyml join   (finds Laptop 1 automatically)
+
+Both laptops train together:
+- Auto-discovery via mDNS (like AirDrop for ML)
+- Ring AllReduce for gradient synchronization
+- Adaptive batch sizing based on CPU power
+- Gradient compression over WiFi (up to 50x)
+```
+
+---
+
+## Features
+
+- Zero config — no IP addresses, no config files
+- Auto-discovery — machines find each other via mDNS
+- Ring AllReduce — efficient gradient averaging across nodes
+- Adaptive scheduling — faster machines get bigger batches
+- Gradient compression — up to 50x smaller over WiFi
+- Any hardware — works on any CPU laptop, any OS
+
+---
+
+## Installation
+
+```bash
+pip install colonyml
+```
+
+---
+
+## Status
+
+Active Development — v0.1.0 is the initial release.
+Core features being built now. Star the repo to follow progress.
+
+---
+
+## Roadmap
+
+- v0.1.0 — PyPI release, project structure
+- v0.2.0 — mDNS auto-discovery between machines
+- v0.3.0 — gradient compression
+- v0.4.0 — adaptive CPU-aware batch scheduler
+- v0.5.0 — Ring AllReduce gradient synchronization
+- v1.0.0 — stable release with full test coverage
+
+---
+
+## Author
+
+Jeevana Sai Gogineni
+MS Data Science · University of Maryland · GPA 4.0
+
+GitHub: https://github.com/gjeevana27
+LinkedIn: https://linkedin.com/in/jeevana-gogineni
+
+---
+
+## License
+
+MIT License — free to use, modify, and distribute.

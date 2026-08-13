@@ -1,0 +1,14 @@
+README.md
+pyproject.toml
+setup.py
+colonyml/__init__.py
+colonyml/cli.py
+colonyml/compressor.py
+colonyml/discovery.py
+colonyml/scheduler.py
+colonyml.egg-info/PKG-INFO
+colonyml.egg-info/SOURCES.txt
+colonyml.egg-info/dependency_links.txt
+colonyml.egg-info/entry_points.txt
+colonyml.egg-info/requires.txt
+colonyml.egg-info/top_level.txt

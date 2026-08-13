@@ -1,0 +1,2 @@
+[console_scripts]
+colonyml = colonyml.cli:cli
