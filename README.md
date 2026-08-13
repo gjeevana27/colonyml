@@ -62,12 +62,12 @@ pip install colonyml
 
 ## Status
 
-
-Active Development — v0.1.3 released.
+Active Development — v0.1.5 released.
 
 - mDNS auto-discovery working
 - Gradient compression up to 33x
 - Ring AllReduce implemented and tested
+- MNIST training demo: 98.49% accuracy across 2 virtual nodes
 - 27 tests passing
 - CLI: colonyml join / status / version
 
@@ -75,17 +75,16 @@ Star the repo to follow progress.
 
 ---
 
-
 ## Roadmap
 
 - v0.1.0 — PyPI release, project structure
 - v0.1.1 — Package name finalized, setup complete
 - v0.1.2 — mDNS auto-discovery, gradient compression,
-            adaptive CPU scheduler, CLI (colonyml join / status)
-- v0.1.3 — Ring AllReduce gradient synchronization, 27 tests passing
-- v0.1.4 — MNIST training example across 2 machines (coming soon)
-- v1.0.0 — stable release, full documentation
-
+            adaptive CPU scheduler, CLI
+- v0.1.3 — Ring AllReduce gradient synchronization, 27 tests
+- v0.1.4 — README and status updates
+- v0.1.5 — MNIST distributed training demo, 98.49% accuracy
+- v1.0.0 — stable release, multi-machine verified, full docs
 ---
 
 ## Author
