@@ -5,7 +5,6 @@ import psutil
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
-from rich.live import Live
 
 console = Console()
 
@@ -27,7 +26,7 @@ def join(port):
         "[bold cyan]ColonyML[/bold cyan] — Joining cluster...\n"
         "[dim]Machines on the same network will find you automatically.[/dim]",
         border_style="cyan",
-        title="ColonyML v0.1.1"
+        title="ColonyML v0.1.5"
     ))
 
     discovery = NodeDiscovery(port=port)
@@ -124,6 +123,78 @@ def version():
     """Show ColonyML version."""
     from colonyml import __version__
     console.print(f"ColonyML v{__version__}")
+
+
+@cli.command()
+@click.option("--script", required=True,
+              help="Path to training script")
+@click.option("--epochs", default=3,
+              help="Number of epochs (default: 3)")
+@click.option("--batch-size", default=64,
+              help="Total batch size (default: 64)")
+@click.option("--wait", default=10,
+              help="Seconds to wait for other nodes (default: 10)")
+@click.option("--port", default=29500,
+              help="Port to use (default: 29500)")
+def train(script, epochs, batch_size, wait, port):
+    """
+    Start distributed training across all nodes on the network.
+
+    Run the SAME command on every machine:
+
+        colonyml train --script train_mnist.py
+
+    Nodes discover each other automatically.
+    No IP addresses. No rank. No config files.
+    """
+    import importlib.util
+
+    console.print(Panel(
+        f"[bold cyan]ColonyML[/bold cyan] — Distributed Training\n"
+        f"[dim]Script:  {script}[/dim]\n"
+        f"[dim]Epochs:  {epochs}[/dim]\n"
+        f"[dim]Batch:   {batch_size}[/dim]\n"
+        f"[dim]Wait:    {wait}s for other nodes[/dim]",
+        title="ColonyML Train",
+        border_style="cyan"
+    ))
+
+    if not os.path.exists(script):
+        console.print(
+            f"[red]Error: Script not found: {script}[/red]"
+        )
+        return
+
+    # Load the training script as a module
+    spec = importlib.util.spec_from_file_location(
+        "train_script", script
+    )
+    module = importlib.util.module_from_spec(spec)
+
+    # Inject ColonyTrainer into script namespace
+    from colonyml.trainer import ColonyTrainer
+    module.ColonyTrainer = ColonyTrainer
+    module.COLONYML_EPOCHS = epochs
+    module.COLONYML_BATCH_SIZE = batch_size
+    module.COLONYML_WAIT = wait
+    module.COLONYML_PORT = port
+
+    spec.loader.exec_module(module)
+
+    # Call train_colonyml() if defined in the script
+    if hasattr(module, "train_colonyml"):
+        module.train_colonyml(
+            epochs=epochs,
+            batch_size=batch_size,
+            wait=wait,
+            port=port
+        )
+    else:
+        console.print(
+            "[red]Error: Script must define:[/red]\n"
+            "[yellow]def train_colonyml("
+            "epochs, batch_size, wait, port):[/yellow]"
+        )
 
 
 if __name__ == "__main__":
