@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 
-with open("README.md", "r", encoding="utf-8") as f:
+with open("README_PYPI.md", "r", encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
     name="colonyml",
-    version="1.0.1",
+    version="1.0.2",
     author="Jeevana Gogineni",
     description="Zero-config distributed ML training for CPU clusters",
     long_description=long_description,

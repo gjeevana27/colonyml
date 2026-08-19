@@ -330,3 +330,5 @@ if __name__ == "__main__":
     print(f"Shape preserved: {result.shape == large_gradients[0].shape}")
     print(f"✓ Large tensor AllReduce correct" if error < 1e-5
           else f"✗ Error too large: {error}")
+    
+from colonyml.secure_communicator import SecureCommunicator
